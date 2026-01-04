@@ -1,0 +1,70 @@
+import random
+def deal_card():
+    
+    return random.choice(cards)
+
+def calculate_score(cards):
+    score = sum(cards)
+    if score == 21 and len(cards)== 2:
+        return 0
+    if 11 in cards and score > 21:
+        cards.remove(11)
+        cards.append(1)
+    return sum(cards)
+
+def compare(user_cards, computer_cards):
+    user_score = calculate_score(user_cards)
+    computer_score = calculate_score(computer_cards)
+    if computer_score == 0 :
+        return ' computer has the black jack , you lose '
+    elif user_score == 0:
+        return ' you have the black jack , you win'
+    elif user_score == computer_score:
+        return ' its a tie '
+    elif  user_score > 21:
+        return ' you lose, you went over 21 '
+    elif computer_score > 21:
+        return " you win, computer went over 21  "
+    elif user_score > computer_score:
+        return ' you win, you have the highest sum '
+    else:
+        return ' you lose , computer has the highest sum'
+
+
+
+cards = [11,2,3,4,5,6,7,8,9,10,10,10,10]
+game_over = False
+while game_over == False: 
+    user_cards = [deal_card(),deal_card()]
+    computer_cards =[deal_card(),deal_card()]
+    f_choice=input(" do you want to  play black jack?")
+    f_choice = f_choice.upper()
+    if f_choice =='Y':
+        deal_card()
+        print(f" your cards:{user_cards}, current score:{sum(user_cards)} computer first card :{computer_cards[0]} {computer_cards}")
+        user_score = calculate_score(user_cards)
+        computer_score = calculate_score(computer_cards)
+        user_cards.append(deal_card())
+        calculate_score(user_cards)
+        calculate_score(computer_cards)
+            
+        com_score = calculate_score(computer_cards)
+        choice = input(" do you want another card ?Y OR N\n")
+        choice=choice.upper()
+        if choice =="Y":
+             deal_card()                              
+             while com_score != 0 and com_score < 17 :
+              computer_score= calculate_score(computer_cards)            
+             else:
+                print(compare(user_cards, computer_cards))             
+        else:
+            break
+        
+       
+       
+        
+    else:
+        game_over = True
+        print('thanks for playing')
+        break    
+        
